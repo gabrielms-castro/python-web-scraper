@@ -1,6 +1,7 @@
 import sys
 from crawl import crawl_page
 
+
 def main():
     args = sys.argv
     if len(args) < 2:
@@ -10,7 +11,7 @@ def main():
     if len(args) > 2:
         print("too many arguments provided")
         sys.exit(1)
-    
+
     BASE_URL = args[1]
     print(f"[INFO] starting crawl of: {BASE_URL}")
     try:
@@ -22,5 +23,7 @@ def main():
 
     except Exception as err:
         print(f"[ERROR] Error fetching {BASE_URL}")
+
+
 if __name__ == "__main__":
     main()
