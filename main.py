@@ -1,8 +1,9 @@
+import asyncio
 import sys
-from crawl import crawl_page
+from async_crawl import crawl_site_async
 
 
-def main():
+async def main():
     args = sys.argv
     if len(args) < 2:
         print("no website provided. Usage: uv run main.py <BASE_URL>")
@@ -12,18 +13,16 @@ def main():
         print("too many arguments provided")
         sys.exit(1)
 
-    BASE_URL = args[1]
-    print(f"[INFO] starting crawl of: {BASE_URL}")
-    try:
-        page_data = crawl_page(BASE_URL)
+    base_url = args[1]
 
-        print(f"Found {len(page_data)} pages:")
-        for page in page_data.values():
-            print(f"- {page['url']}: {len(page['outgoing_links'])} outgoing links")
+    print(f"Starting async crawl of: {base_url}")
+    page_data = await crawl_site_async(base_url)
 
-    except Exception as err:
-        print(f"[ERROR] Error fetching {BASE_URL}")
+    for page in page_data.values():
+        print(f"Found {len(page['outgoing_links'])} outgoing links on {page['url']}")
+
+    sys.exit(0)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
