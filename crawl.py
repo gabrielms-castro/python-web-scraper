@@ -98,10 +98,10 @@ def crawl_page(base_url, current_url=None, page_data=None):
     normalized_url = normalize_url(current_url)
 
     if normalized_url in page_data:
-        print(f"Skipping already crawled: {normalized_url}")
+        print(f"[INFO] Skipping already crawled: {normalized_url}")
         return page_data
 
-    print(f"Scraping page: {current_url}")
+    print(f"[INFO] Scraping page: {current_url}")
 
     html = safe_get_html(current_url)
     if html is None:

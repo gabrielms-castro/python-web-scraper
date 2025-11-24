@@ -36,7 +36,7 @@ class AsyncCrawl:
 
             if len(self.page_data) >= self.max_pages:
                 self.should_stop = True
-                print("Reached maximum number of pages to crawl.")
+                print("[WARN] Reached maximum number of pages to crawl.")
                 for task in self.all_tasks:
                     if not task.done():
                         task.cancel()
@@ -62,8 +62,9 @@ class AsyncCrawl:
                     return None
 
                 return await response.text()
+
         except Exception as e:
-            print(f"Error fetching {url}: {e}")
+            print(f"[ERROR] Error fetching {url}: {e}")
             return None
 
     async def crawl_page(self, current_url):
@@ -81,7 +82,7 @@ class AsyncCrawl:
             return
 
         async with self.semaphore:
-            print(f"Scraping page: {current_url}")
+            print(f"[INFO] Scraping page: {current_url}")
 
             html = await self.get_html(current_url)
             if html is None:
