@@ -5,18 +5,20 @@ from async_crawl import crawl_site_async
 
 async def main():
     args = sys.argv
-    if len(args) < 2:
-        print("no website provided. Usage: uv run main.py <BASE_URL>")
+    if len(args) < 4:
+        print("Usage: uv run main.py <BASE_URL> <MAX_CONCURRENCY> <MAX_PAGES>")
         sys.exit(1)
 
-    if len(args) > 2:
+    if len(args) > 4:
         print("too many arguments provided")
         sys.exit(1)
 
     base_url = args[1]
+    max_concurrency = args[2]
+    max_pages = args[3]
 
     print(f"Starting async crawl of: {base_url}")
-    page_data = await crawl_site_async(base_url)
+    page_data = await crawl_site_async(base_url, int(max_concurrency), int(max_pages))
 
     for page in page_data.values():
         print(f"Found {len(page['outgoing_links'])} outgoing links on {page['url']}")
