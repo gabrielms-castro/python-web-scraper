@@ -18,3 +18,8 @@ source .venv/bin/activate
 ```
 uv install
 ```
+
+### 5. Run program
+```
+uv run main.py <URL> <MAX_CONCURRENCY> <MAX_PAGES>
+```
